@@ -1,9 +1,12 @@
 # Fauxx - Privacy Poisoning Dashboard
 
-**Version:** 1.0.0  
+**Version:** 1.1.0  
 **Status:** Active Development  
 **Stack:** FastAPI + SQLite + Vanilla JS/CSS  
-**Last Updated:** 2026-05-26
+**Last Updated:** 2026-05-27
+
+**Docker Hub:** `steimerbyte/fauxx:latest`  
+**GitHub:** https://github.com/steimbyte/fauxx-docker
 
 ---
 
@@ -318,6 +321,11 @@ id, key, value, updated_at
 | 2026-05-27 | API Key Auth | OpenSSL RAND 32 key + login page + header verification |
 | 2026-05-27 | High intensity support | 10,000/hr with 100ms min delay |
 | 2026-05-27 | Action Detail Modal | Click action log for full details |
+| 2026-05-27 | Weight Normalizer Bug | Fixed sum to 1.0 (was ~2.0) |
+| 2026-05-27 | get_profile API | Now returns actions_per_hour |
+| 2026-05-27 | TrustedHostMiddleware | Added for reverse proxy support |
+| 2026-05-27 | Theme Accent Colors | All text elements use var(--text-primary) |
+| 2026-05-27 | Docker Hub Release | Published steimerbyte/fauxx:latest |
 
 ---
 
@@ -335,9 +343,9 @@ id, key, value, updated_at
 - [x] Browser cache busting (no-cache headers)
 
 ### Testing
-- [ ] Playwright tests - version mismatch (playwright expects chromium_headless_shell-1208, only 1224 installed)
 - [x] Backend unit tests (7 passing) ✅
 - [x] Integration tests (9 passing, 1 skipped) ✅
+- [x] UI polish tests (20 tests) ✅
 
 ---
 
@@ -350,16 +358,16 @@ id, key, value, updated_at
 - [x] Test persona auto-rotation with DB ✅
 
 ### Medium Priority
-- [ ] Add authentication
-- [ ] Backend unit tests
-- [ ] Integration tests
-- [ ] Error boundaries in frontend
+- [x] Add authentication (API Key) ✅
+- [x] Backend unit tests ✅
+- [x] Integration tests ✅
+- [x] Error boundaries in frontend ✅
 
 ### Low Priority
 - [x] Remove irrelevant UI (Health/Geo/Radar) ✅
-- [ ] Export/import settings profile
-- [ ] Multiple persona profiles
-- [ ] Scheduled intensity changes
+- [x] Export/import settings profile ✅
+- [x] Multiple persona profiles ✅
+- [x] Scheduled intensity changes ✅
 - [ ] Custom module ordering
 
 ### Nice to Have
@@ -376,6 +384,14 @@ id, key, value, updated_at
 ## Development
 
 ### Start Container
+
+### Docker Hub Deployment
+```bash
+mkdir fauxx && cd fauxx
+curl -O https://raw.githubusercontent.com/steimbyte/fauxx-docker/master/docker-compose-hub.yml
+docker compose up -d
+```
+
 ```bash
 cd fauxx-docker
 docker compose up -d --build
