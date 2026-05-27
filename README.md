@@ -66,16 +66,23 @@ The goal: poison tracking systems with enough noise that your real profile becom
 
 ## 🚀 Quick Start
 
+### Option 1: Docker Hub (Recommended)
 ```bash
-# Clone
-git clone https://github.com/steimbyte/fauxx.git
-cd fauxx
+mkdir fauxx && cd fauxx
+curl -O https://raw.githubusercontent.com/steimbyte/fauxx-docker/master/docker-compose-hub.yml
+docker compose -f docker-compose-hub.yml up -d
+```
 
-# Start (engine auto-starts)
-docker compose up -d
+### Option 2: Build Locally
+```bash
+git clone https://github.com/steimbyte/fauxx-docker.git
+cd fauxx-docker
+docker compose up -d --build
+```
 
-# Access Dashboard
-open http://localhost:8000/login
+### Access Dashboard
+```
+http://localhost:8000/login
 ```
 
 ### API Key
