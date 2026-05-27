@@ -14,6 +14,8 @@
 
 The goal: poison tracking systems with enough noise that your real profile becomes statistically insignificant.
 
+> **Original FAUXX Android App** — A brilliant concept by the original developer. This Docker port brings the same power to the browser with a full self-hosted dashboard.
+
 ---
 
 ## 🛠️ Tech Stack
