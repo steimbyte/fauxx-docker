@@ -86,7 +86,12 @@ http://localhost:8000/login
 ```
 
 ### API Key
-Default key: `a247c8d858733a9cde76c2974d4e02ef0c4bcde4232da8145ddf76862f827293`
+**The API key is generated automatically on first start.**
+
+Find it in `data/settings.json` or in the container:
+```bash
+docker exec fauxx cat /data/settings.json | jq '.api_key'
+```
 
 ---
 

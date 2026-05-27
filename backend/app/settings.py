@@ -1,5 +1,6 @@
 import json
 import os
+import secrets
 from pathlib import Path
 
 # Use /data for persistence in Docker, fallback to project data dir for dev
@@ -26,6 +27,8 @@ class SettingsManager:
             self._save()
     
     def _default_settings(self):
+        # Generate a secure random API key on first start
+        api_key = secrets.token_hex(32)
         return {
             "enabled": True,
             "intensity": "MEDIUM",
@@ -43,8 +46,8 @@ class SettingsManager:
             "layer1_enabled": False,
             "layer2_enabled": False,
             "layer3_enabled": True,
-            "theme": "#d4a853",
-            "api_key": "a247c8d858733a9cde76c2974d4e02ef0c4bcde4232da8145ddf76862f827293"
+            "theme": "#00ff41",
+            "api_key": api_key
         }
     
     def _save(self):
