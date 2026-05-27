@@ -4,6 +4,8 @@
 
 > *"Make their algorithms choke on synthetic noise."*
 
+![Dashboard Preview](docs/preview.png)
+
 ---
 
 ## 🔥 What is this?
