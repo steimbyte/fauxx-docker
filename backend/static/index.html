@@ -2877,9 +2877,21 @@ button, .action-btn, .btn, .btn *, .preset-btn,
                 const statUptime = document.getElementById('stat-uptime');
                 if (statUptime) statUptime.textContent = hours + 'h';
                 
-                // Data used
-                const dataUsed = data.data_used_mb || 0;
-                const dataStr = dataUsed < 1 ? dataUsed.toFixed(3) + ' MB' : dataUsed < 100 ? dataUsed.toFixed(1) + ' MB' : (dataUsed / 1024).toFixed(2) + ' GB';
+                // Data used (auto-scale: bits -> KB -> MB -> GB)
+                const dataUsedMB = data.data_used_mb || 0;
+                const dataUsedBits = dataUsedMB * 8 * 1024 * 1024; // Convert to bits
+                let dataStr;
+                if (dataUsedBits < 1000) {
+                    dataStr = dataUsedBits.toFixed(0) + ' b';
+                } else if (dataUsedBits < 1000000) {
+                    dataStr = (dataUsedBits / 1000).toFixed(1) + ' Kb';
+                } else if (dataUsedMB < 1) {
+                    dataStr = (dataUsedMB * 1024).toFixed(1) + ' KB';
+                } else if (dataUsedMB < 1000) {
+                    dataStr = dataUsedMB.toFixed(1) + ' MB';
+                } else {
+                    dataStr = (dataUsedMB / 1024).toFixed(2) + ' GB';
+                }
                 const statData = document.getElementById('stat-data');
                 if (statData) statData.textContent = dataStr;
                 
