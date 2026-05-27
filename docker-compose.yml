@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   fauxx:
     build:
@@ -9,10 +7,15 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - fauxx_data:/data
+      - ./backend/static:/app/static:ro
+      - ./data:/data
     environment:
       DATA_DIR: /data
     restart: unless-stopped
+    networks:
+      - proxy
 
-volumes:
-  fauxx_data:
+networks:
+  proxy:
+    name: proxy
+    external: true
