@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   fauxx:
     image: steimerbyte/fauxx:latest
@@ -12,6 +10,3 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-
-volumes:
-  data:
