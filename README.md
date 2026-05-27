@@ -1,10 +1,12 @@
-# ⚡ FAUXX
+![Banner](https://raw.githubusercontent.com/steimbyte/fauxx-docker/master/docs/preview.png)
+
+# ⚡ FAUXX Docker
+
+> **Fork of the FAUXX Android App** — A brilliant concept by the original developer, now as a self-hosted Docker container.
 
 ### Privacy Poisoning Engine — Forged for Chaos
 
 > *"Make their algorithms choke on synthetic noise."*
-
-![Dashboard Preview](https://raw.githubusercontent.com/steimbyte/fauxx-docker/master/docs/preview.png)
 
 ---
 
@@ -13,8 +15,6 @@
 **FAUXX** is a privacy poisoning dashboard that pollutes your digital fingerprint with synthetic behavior. It generates fake search queries, cookie trails, DNS noise, ad impressions, and location data — all orchestrated through rotating personas.
 
 The goal: poison tracking systems with enough noise that your real profile becomes statistically insignificant.
-
-> **Original FAUXX Android App** — A brilliant concept by the original developer. This Docker port brings the same power to the browser with a full self-hosted dashboard.
 
 ---
 
