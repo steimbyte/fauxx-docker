@@ -4,7 +4,7 @@
 
 > *"Make their algorithms choke on synthetic noise."*
 
-![Dashboard Preview](docs/preview.png)
+![Dashboard Preview](https://raw.githubusercontent.com/steimbyte/fauxx-docker/master/docs/preview.png)
 
 ---
 
