@@ -69,10 +69,17 @@ class CookieSaturationModule(Module):
         )
     
     def _get_random_url(self, category: CategoryPool) -> str:
-        # TODO: implement category-weighted URL selection
-        fallbacks = [
-            "https://www.example.com/category1",
-            "https://www.example.com/category2",
-            "https://www.example.com/category3",
+        # Real, accessible domains for cookie harvesting simulation
+        urls = [
+            "https://www.google.com/search?q=test",
+            "https://www.bing.com/search?q=test",
+            "https://duckduckgo.com/?q=test",
+            "https://news.ycombinator.com/",
+            "https://www.wikipedia.org/",
+            "https://www.reddit.com/",
+            "https://www.amazon.com/s?k=test",
+            "https://www.youtube.com/results?search_query=test",
+            "https://twitter.com/search?q=test",
+            "https://www.stackoverflow.com/search?q=test",
         ]
-        return random.choice(fallbacks)
+        return random.choice(urls)

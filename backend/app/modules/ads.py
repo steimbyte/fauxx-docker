@@ -68,10 +68,13 @@ class AdPollutionModule(Module):
         )
     
     def _get_random_crawl_url(self, category: CategoryPool) -> str:
-        # TODO: implement category-weighted URL selection from CrawlListManager
+        # Real, accessible domains for ad impression simulation
         fallbacks = [
-            "https://www.example.com",
+            "https://www.google.com",
+            "https://www.bing.com",
             "https://www.wikipedia.org",
             "https://news.ycombinator.com",
+            "https://www.github.com",
+            "https://www.reddit.com",
         ]
         return random.choice(fallbacks)

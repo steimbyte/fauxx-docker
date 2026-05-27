@@ -73,7 +73,7 @@ async def websocket_endpoint(websocket: WebSocket):
             
             # Handle ping/pong
             if data == "ping":
-                await websocket.send_text("pong")
+                await websocket.send_json({"type": "pong", "message": "alive"})
             
             # Handle subscribe messages
             try:

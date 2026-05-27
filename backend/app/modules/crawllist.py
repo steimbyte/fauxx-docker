@@ -58,13 +58,14 @@ class CrawlListManager:
     
     def _load_fallback(self):
         """Load fallback URLs when assets unavailable."""
-        # Simple fallback URLs
+        # Real, accessible domains
         fallbacks = [
             "https://www.wikipedia.org",
-            "https://www.example.com",
             "https://www.github.com",
             "https://www.stackoverflow.com",
             "https://www.reddit.com",
+            "https://www.amazon.com",
+            "https://www.youtube.com",
         ]
         for cat in CategoryPool:
             self.urls_by_category[cat] = [

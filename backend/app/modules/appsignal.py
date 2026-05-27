@@ -21,7 +21,7 @@ class AppSignalModule(Module):
     """
     
     def __init__(self):
-        self._enabled = False  # Disabled by default like Fauxx
+        self._enabled = True  # Enabled for full coverage
         self._client = None
     
     async def start(self):

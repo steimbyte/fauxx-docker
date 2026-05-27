@@ -60,34 +60,55 @@ class TargetingEngine:
     def _invalidate_cache(self):
         self._cached_weights = self._compute_weights()
     
+    # Blend ratio: 65% persona, 35% uniform
+    PERSONA_BLEND = 0.65
+    
     def _compute_weights(self) -> dict[CategoryPool, float]:
-        """Compute combined weights from all layers."""
-        # Start with Layer 0 (uniform baseline)
-        weights = self.layer0.get_weights()
+        """Compute combined weights.
         
-        # Multiply by Layer 1 if enabled
+        If Layer 3 (Persona) is enabled: 65% persona, 35% uniform
+        If Layer 3 is disabled: 100% uniform
+        """
+        # Layer 0: uniform baseline
+        uniform_weights = self.layer0.get_weights()
+        
+        if self._layer3_enabled and self.layer3:
+            # Persona active: blend 65% persona, 35% uniform
+            persona_weights = self.layer3.get_weights()
+            blended = {}
+            for cat in CategoryPool:
+                persona_w = persona_weights.get(cat, 1.0)
+                uniform_w = uniform_weights.get(cat, 1.0)
+                blended[cat] = (persona_w * self.PERSONA_BLEND) + (uniform_w * (1 - self.PERSONA_BLEND))
+        else:
+            # Persona disabled: 100% uniform
+            blended = uniform_weights
+        
+        # Apply Layer 1 & 2 multipliers if enabled
         if self._layer1_enabled and self.layer1:
             l1_weights = self.layer1.get_weights()
-            weights = {cat: weights[cat] * l1_weights.get(cat, 1.0) 
-                      for cat in CategoryPool}
+            blended = {cat: blended[cat] * l1_weights.get(cat, 1.0) for cat in CategoryPool}
         
-        # Multiply by Layer 2 if enabled
         if self._layer2_enabled and self.layer2:
             l2_weights = self.layer2.get_weights()
-            weights = {cat: weights[cat] * l2_weights.get(cat, 1.0) 
-                      for cat in CategoryPool}
+            blended = {cat: blended[cat] * l2_weights.get(cat, 1.0) for cat in CategoryPool}
         
-        # Multiply by Layer 3 if enabled
-        if self._layer3_enabled:
-            l3_weights = self.layer3.get_weights()
-            weights = {cat: weights[cat] * l3_weights.get(cat, 1.0) 
-                      for cat in CategoryPool}
-        
-        # Normalize to sum = 1.0
-        return self.normalizer.normalize(weights)
+        return self.normalizer.normalize(blended)
     
     def get_weights(self) -> dict[CategoryPool, float]:
         return self.cached_weights
+    
+    def set_weights(self, weights: dict):
+        """Set category weights from a dict."""
+        from app.models.enums import CategoryPool
+        parsed = {}
+        for k, v in weights.items():
+            try:
+                cat = CategoryPool(k) if isinstance(k, str) else k
+                parsed[cat] = float(v)
+            except (ValueError, KeyError):
+                pass
+        self._cached_weights = self.normalizer.normalize(parsed)
     
     def select_category(self) -> CategoryPool:
         """Select a random category based on current weights."""

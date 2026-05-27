@@ -22,6 +22,10 @@ class PoissonScheduler:
         """
         Calculate delay for Poisson-distributed events.
         Returns delay in milliseconds.
+        
+        For high rates (e.g., 10,000/hr = ~2.78/sec):
+        - Lower bound is 100ms to prevent overwhelming the system
+        - At 10,000/hr, average delay is 360ms, with jitter ~180-540ms
         """
         if actions_per_hour <= 0:
             return 3600000  # 1 hour default
@@ -35,7 +39,11 @@ class PoissonScheduler:
         # Convert to milliseconds
         delay_ms = int(avg_interval_hours * 3600000 * jitter)
         
-        return max(1000, delay_ms)  # Minimum 1 second
+        # Minimum 100ms for high rates, 1000ms for low rates
+        if actions_per_hour >= 3600:  # 3600+ = 1+/sec
+            return max(100, delay_ms)  # 100ms min for high rates
+        else:
+            return max(1000, delay_ms)  # 1 second min for low rates
     
     def next_delay_ms(
         self,

@@ -10,6 +10,16 @@ class ActionLogEntry:
     category: CategoryPool
     detail: str
     success: bool = True
+    error: str = None
+    
+    def to_dict(self):
+        return {
+            "action_type": self.action_type.value,
+            "category": self.category.value,
+            "detail": self.detail,
+            "success": self.success,
+            "error": self.error,
+        }
 
 
 class Module(ABC):
@@ -29,6 +39,10 @@ class Module(ABC):
     def is_enabled(self) -> bool:
         """Check if module is enabled."""
         pass
+    
+    def set_enabled(self, enabled: bool):
+        """Enable or disable the module."""
+        self._enabled = enabled
     
     @abstractmethod
     async def on_action(self, category: CategoryPool) -> ActionLogEntry:

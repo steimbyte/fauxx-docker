@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, Boolean, Index
+from sqlalchemy import Column, Integer, BigInteger, String, Boolean, Index
 from app.database import Base
 from app.models.enums import ActionType, CategoryPool
 
@@ -6,7 +6,8 @@ from app.models.enums import ActionType, CategoryPool
 class ActionLog(Base):
     __tablename__ = "action_log"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    # SQLite requires INTEGER (not BigInteger) for autoincrement to work
+    id = Column(Integer, primary_key=True, autoincrement=True)
     timestamp = Column(BigInteger, default=lambda: int(__import__("time").time() * 1000))
     action_type = Column(String(50), nullable=False)
     category = Column(String(50), nullable=False)

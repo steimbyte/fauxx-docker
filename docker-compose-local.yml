@@ -1,0 +1,14 @@
+services:
+  fauxx:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fauxx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/static:/app/static:ro
+      - ./data:/data
+    environment:
+      DATA_DIR: /data
+    restart: unless-stopped
